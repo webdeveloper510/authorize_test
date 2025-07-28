@@ -15,10 +15,10 @@ function App() {
     setLoading(true);
     setError(null);
 
-    const authData = {
-      clientKey: 'YOUR_CLIENT_KEY',       // Get from Authorize.Net
-      apiLoginID: 'YOUR_API_LOGIN_ID',   // Get from Authorize.Net
-    };
+   const authData = {
+        clientKey: '48qPmpuKgaEp5d6ReVZFm8D7WM4DR24WhdMc862e9u3DbdTAmQcb4S2e2937bc9A',
+        apiLoginID: '4dBF93uzn',
+      };
 
     const cardData = {
       cardNumber,
