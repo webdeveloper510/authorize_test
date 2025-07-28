@@ -10,47 +10,97 @@ function App() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // const handlePayment = (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   setError(null);
+
+  //  const authData = {
+  //       clientKey: '48qPmpuKgaEp5d6ReVZFm8D7WM4DR24WhdMc862e9u3DbdTAmQcb4S2e2937bc9A',
+  //       apiLoginID: '4dBF93uzn',
+  //     };
+
+  //   const cardData = {
+  //     cardNumber,
+  //     month,
+  //     year,
+  //     cardCode: cvv,
+  //     fullName,
+  //   };
+
+  //   const secureData = {
+  //     authData,
+  //     cardData,
+  //   };
+
+  //   if (window.Accept) {
+  //     window.Accept.dispatchData(secureData, (response) => {
+  //       console.log("response" , response)
+  //       if (response.messages.resultCode === 'Error') {
+  //         setError(response.messages.message[0].text);
+  //         setLoading(false);
+  //       } else {
+  //         const opaqueData = response.opaqueData;
+  //         console.log('Send this to backend:', opaqueData);
+
+  //         // 🚀 TODO: Send `opaqueData` to your backend to finalize the transaction
+  //         setLoading(false);
+  //       }
+  //     });
+  //   } else {
+  //     setError('Accept.js not loaded.');
+  //     setLoading(false);
+  //   }
+  // };
+
+
   const handlePayment = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
+  e.preventDefault();
+  setLoading(true);
+  setError(null);
 
-   const authData = {
-        clientKey: '48qPmpuKgaEp5d6ReVZFm8D7WM4DR24WhdMc862e9u3DbdTAmQcb4S2e2937bc9A',
-        apiLoginID: '4dBF93uzn',
-      };
-
-    const cardData = {
-      cardNumber,
-      month,
-      year,
-      cardCode: cvv,
-      fullName,
-    };
-
-    const secureData = {
-      authData,
-      cardData,
-    };
-
-    if (window.Accept) {
-      window.Accept.dispatchData(secureData, (response) => {
-        if (response.messages.resultCode === 'Error') {
-          setError(response.messages.message[0].text);
-          setLoading(false);
-        } else {
-          const opaqueData = response.opaqueData;
-          console.log('Send this to backend:', opaqueData);
-
-          // 🚀 TODO: Send `opaqueData` to your backend to finalize the transaction
-          setLoading(false);
-        }
-      });
-    } else {
-      setError('Accept.js not loaded.');
-      setLoading(false);
-    }
+  const authData = {
+    clientKey: '48qPmpuKgaEp5d6ReVZFm8D7WM4DR24WhdMc862e9u3DbdTAmQcb4S2e2937bc9A',  // e.g., 48qPmpuKgaEp5d6...
+    apiLoginID: '4dBF93uzn', // e.g., 4dBF93uzn
   };
+
+
+   
+
+
+  const cardData = {
+    cardNumber,     // e.g., '4111111111111111'
+    month,          // e.g., '12'
+    year,           // e.g., '2026'
+    cardCode: cvv,  // e.g., '123'
+    fullName,       // e.g., 'John Doe'
+  };
+
+  const secureData = {
+    authData,
+    cardData,
+  };
+
+  if (window.Accept) {
+    window.Accept.dispatchData(secureData, (response) => {
+      console.log("response", response);
+      if (response.messages.resultCode === 'Error') {
+        setError(response.messages.message[0].text);
+        setLoading(false);
+      } else {
+        const opaqueData = response.opaqueData;
+        console.log('Send this to backend:', opaqueData);
+
+        // ✅ Now you send opaqueData to your backend to charge the card
+        setLoading(false);
+      }
+    });
+  } else {
+    setError('Accept.js not loaded.');
+    setLoading(false);
+  }
+};
+
 
   return (
     <form onSubmit={handlePayment}>
