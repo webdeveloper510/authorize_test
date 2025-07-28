@@ -81,6 +81,10 @@ function App() {
     cardData,
   };
 
+  if (!window.Accept) {
+  console.error('Accept.js not loaded');
+}
+
   if (window.Accept) {
     window.Accept.dispatchData(secureData, (response) => {
       console.log("response", response);
